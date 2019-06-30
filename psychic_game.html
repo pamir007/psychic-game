@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Psychic Game</title>
+</head>
+
+<body>
+    <h1>The Psychic Game</h1>
+    <div>
+        <p>Guess what letter I'm thinking of</p>
+        <br>
+        <p>Wins: </p>
+        <p id="wins"></p>
+        <br>
+        <p>Losses: </p>
+        <p id="losses"></p>
+        <br>
+        <p>Guesses Left: </p>
+        <p id="guesses_left"></p>
+        <br>
+        <p>Your Guesses so far: </p>
+        <p id="wrong_guesses"></p>
+        <br>
+    </div>
+    <script type="text/javascript">
+        var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+            'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+        var wins = 0;
+        var losses = 0;
+        var guesses = 10;
+        var computerChoice
+        var wrongGuesses = "";
+
+        function startFreshGame() {
+            document.getElementById("wins").innerHTML = wins
+            document.getElementById("losses").innerHTML = losses
+            guesses = 10;
+            document.getElementById("guesses_left").innerHTML = guesses
+            wrongGuesses = "";
+            document.getElementById("wrong_guesses").innerHTML = wrongGuesses
+            computerChoice = alphabet[Math.floor(Math.random() * alphabet.length)];
+        }
+
+        startFreshGame();
+
+        document.onkeypress = function (event) {
+            var userGuess = event.key;
+            console.log('the you chose ' + userGuess)
+            
+            if (userGuess === computerChoice) {
+                alert('you win');
+                wins++;
+                document.getElementById("wins").innerHTML = wins;
+                startFreshGame();
+
+            } else { 
+                console.log('not correct');
+                guesses--;
+                document.getElementById("guesses_left").innerHTML = guesses;
+                wrongGuesses = wrongGuesses + userGuess
+                document.getElementById("wrong_guesses").innerHTML = wrongGuesses;
+            }
+
+            if (guesses === 0) {
+                alert('you lose');
+                losses++
+                document.getElementById("losses").innerHTML = losses;
+                startFreshGame();
+            } else {
+                console.log('guess again, guess left: ' + guesses);
+                
+            }
+
+        } 
+    </script>
+</body>
+
+</html>
